@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leaf-Mobile", "Leaf-Mobile\Leaf-Mobile.csproj", "{B649CFC9-F282-4CFB-8F59-191DB4B4E45A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B649CFC9-F282-4CFB-8F59-191DB4B4E45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B649CFC9-F282-4CFB-8F59-191DB4B4E45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B649CFC9-F282-4CFB-8F59-191DB4B4E45A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B649CFC9-F282-4CFB-8F59-191DB4B4E45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B649CFC9-F282-4CFB-8F59-191DB4B4E45A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B649CFC9-F282-4CFB-8F59-191DB4B4E45A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59E0F7F3-7BFF-4B4B-A279-0A80E5EA07DD}
+	EndGlobalSection
+EndGlobal
