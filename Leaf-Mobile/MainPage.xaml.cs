@@ -1,25 +1,19 @@
-﻿namespace Leaf_Mobile
+﻿using Leaf_Mobile.Data;
+using Microsoft.Data.SqlClient;
+
+namespace Leaf_Mobile
 {
 	public partial class MainPage : ContentPage
 	{
-		int count = 0;
+		// private readonly DbConnectionManager _dbConnectionManager;
 
-		public MainPage()
+		public MainPage(DbConnectionManager dbConnectionManager)
 		{
+			// _dbConnectionManager = dbConnectionManager;
 			InitializeComponent();
 		}
 
-		private void OnCounterClicked(object sender, EventArgs e)
-		{
-			count++;
-
-			if (count == 1)
-				CounterBtn.Text = $"Clicked {count} time";
-			else
-				CounterBtn.Text = $"Clicked {count} times";
-
-			SemanticScreenReader.Announce(CounterBtn.Text);
-		}
+		
 	}
 
 }
