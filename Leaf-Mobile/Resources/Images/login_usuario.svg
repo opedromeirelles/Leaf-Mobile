@@ -3,14 +3,16 @@
 <svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 600 600" style="enable-background:new 0 0 600 600;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#4E4D4D;}
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#93C35C;}
 	.st1{fill:#FFFFFF;}
-	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:#93C35C;stroke:#FFFFFF;stroke-width:3;stroke-miterlimit:10;}
 </style>
 <g>
 	<g>
-		<path class="st2" d="M300,589.1c159.9,0,290-129.7,290-289.1c0-159.5-130.1-289.1-290-289.1S10,140.5,10,300
-			C10,459.5,140.1,589.1,300,589.1L300,589.1z"/>
+		<g>
+			<ellipse class="st0" cx="300" cy="300" rx="292" ry="291.1"/>
+			<path class="st1" d="M300,10.9c159.9,0,290,129.6,290,289.1c0,159.4-130.1,289.1-290,289.1S10,459.5,10,300S140.1,10.9,300,10.9
+				 M300,6.9C137.9,6.9,6,138.4,6,300s131.9,293.1,294,293.1S594,461.6,594,300S462.1,6.9,300,6.9L300,6.9z"/>
+		</g>
 	</g>
 	<g>
 		<path class="st1" d="M161.9,468.9c-6.8-67,27.3-123.9,85.2-147.6c2.7-1.1,6.6-0.9,9.3,0.2c29,11.9,57.9,11.8,86.9,0

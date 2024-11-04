@@ -6,7 +6,7 @@
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True"
              NavigationPage.IconColor="White">
-    <!-- Define a cor do ícone de voltar, se necessário -->
+  
 
     <!-- Personalização do TitleView -->
     <NavigationPage.TitleView>
@@ -20,14 +20,22 @@
             <Image Source="log_off.svg" Grid.Column="1" 
                    Margin="0,0,15,0"
                    VerticalOptions="Center" HorizontalOptions="End" 
-                   WidthRequest="25" HeightRequest="25" />
+                   WidthRequest="25" HeightRequest="25">
+
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="ImgLogOff_click"/>
+                </Image.GestureRecognizers>
+
+            </Image>
 
             <!-- Título personalizado -->
             <Label Text="Lista de Pedidos" 
                    Grid.Column="0"
                    FontSize="Medium" 
                    TextColor="White" 
-                   VerticalOptions="Center"/>
+                   VerticalOptions="Center"
+                   x:Name="lblTituloPagina"/>
         </Grid>
     </NavigationPage.TitleView>
 
@@ -37,13 +45,15 @@
             Padding="30,0"
             Spacing="25">
 
+            <!--Titulo da pagina-->
             <Label
                 Text="LISTA DE PEDIDOS A SEREM ENTREGUES"
                 FontSize="Body"
                 HorizontalOptions="Center"
-                Margin="10"
+                Margin="0,30,0,0"
                 />
-
+            
+            <!--Container do pedido-->
             <Frame 
                 BackgroundColor="Transparent" 
                 Padding="0" 
@@ -64,24 +74,30 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
+                        <!--Endereço-->
                         <Label
                             Grid.Column="0"
                             Grid.Row="0"
                             Padding="0,0,80,20"
+                            x:Name="lblEndereco"
                             Text="Endereço: Rua João Pedro Gasparo, Setparque Avenida 2 - CEP 15045643, São José do Rio Preto, SP"/>
 
+                        <!--Número do pedido-->
                         <Label
                             Grid.Column="0"
                             Grid.Row="1"
+                            x:Name="lblNumeroPedido"
                             Text="Pedido: Nº 1"/>
-
+                        
+                        <!--Cliente-->
                         <Label
                             Grid.Column="0"
                             Grid.Row="2"
+                            x:Name="lblNomeCliente"
                             Text="Cliente: Pedro Augusto"/>
 
 
-
+                        <!--Icone de detalhes-->
                         <Image
                             WidthRequest="60"
                             HeightRequest="60"
@@ -92,7 +108,15 @@
                             Aspect="AspectFit"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
-                            Margin="0,0,50,0" />
+                            Margin="0,0,50,0" >
+
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="ImgDetalhes_click"/>
+                            </Image.GestureRecognizers>
+                            
+                            
+                        </Image>
 
                     </Grid>
 
