@@ -73,4 +73,10 @@
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Repository\" />
+	  <Folder Include="Services\" />
+	  <Folder Include="ViewModel\" />
+	</ItemGroup>
+
 </Project>

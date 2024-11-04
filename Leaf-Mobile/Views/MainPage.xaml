@@ -1,8 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Leaf_Mobile.MainPage">
+             x:Class="Leaf_Mobile.MainPage"
+             Title="Lista de Pedidos"
+             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="True"
+             NavigationPage.IconColor="White">
+    <!-- Define a cor do ícone de voltar, se necessário -->
 
+    <!-- Personalização do TitleView -->
+    <NavigationPage.TitleView>
+        <Grid BackgroundColor="Transparent" Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Ícone à esquerda no TitleView -->
+            <Image Source="log_off.svg" Grid.Column="1" 
+                   Margin="0,0,15,0"
+                   VerticalOptions="Center" HorizontalOptions="End" 
+                   WidthRequest="25" HeightRequest="25" />
+
+            <!-- Título personalizado -->
+            <Label Text="Lista de Pedidos" 
+                   Grid.Column="0"
+                   FontSize="Medium" 
+                   TextColor="White" 
+                   VerticalOptions="Center"/>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <!-- Conteúdo principal da página -->
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
@@ -38,18 +67,20 @@
                         <Label
                             Grid.Column="0"
                             Grid.Row="0"
-                            Text="Pedido: Nº 1"/>
+                            Padding="0,0,80,20"
+                            Text="Endereço: Rua João Pedro Gasparo, Setparque Avenida 2 - CEP 15045643, São José do Rio Preto, SP"/>
 
                         <Label
                             Grid.Column="0"
                             Grid.Row="1"
-                            Text="Cliente: Pedro Augusto"/>
+                            Text="Pedido: Nº 1"/>
 
                         <Label
                             Grid.Column="0"
                             Grid.Row="2"
-                            Padding="0,0,20,0"
-                            Text="Endereço: Rua João Pedro Gasparo..."/>
+                            Text="Cliente: Pedro Augusto"/>
+
+
 
                         <Image
                             WidthRequest="60"
@@ -68,6 +99,7 @@
                 </VerticalStackLayout>
 
             </Frame>
+
         </VerticalStackLayout>
     </ScrollView>
 

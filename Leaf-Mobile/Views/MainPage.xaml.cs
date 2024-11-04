@@ -7,7 +7,7 @@ namespace Leaf_Mobile
 	{
 		// private readonly DbConnectionManager _dbConnectionManager;
 
-		public MainPage(DbConnectionManager dbConnectionManager)
+		public MainPage()
 		{
 			// _dbConnectionManager = dbConnectionManager;
 			InitializeComponent();
