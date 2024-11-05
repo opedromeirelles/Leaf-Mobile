@@ -129,9 +129,7 @@
                 Clicked="btnLogin_Clicked"
                 />
 
-
-
-
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

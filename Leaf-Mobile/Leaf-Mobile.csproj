@@ -50,6 +50,7 @@
 
   <ItemGroup>
     <!-- Pacotes necessários para o projeto -->
+    <PackageReference Include="CommunityToolkit.Maui" Version="9.1.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
@@ -64,7 +65,6 @@
   <ItemGroup>
     <!-- Estrutura de pastas para organização do projeto -->
     <Folder Include="Repository\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

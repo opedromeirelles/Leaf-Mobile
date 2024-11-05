@@ -1,8 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Storage;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using Leaf_Mobile.Data;
+using Leaf.Repository.Agentes;
+using Leaf_Mobile.Services;
+using Leaf_Mobile.Views;
+using Leaf_Mobile.ViewModel;
+using CommunityToolkit.Maui;
 
 namespace Leaf_Mobile
 {
@@ -28,13 +34,26 @@ namespace Leaf_Mobile
 			// Adicionar a configuração ao builder
 			builder.Configuration.AddConfiguration(configuration);
 
-			// Registrar serviços
-			builder.Services.AddSingleton<DbConnectionManager>(); // Registrar o DbConnectionManager para injeção de dependência
+			// Registrar o DbConnectionManager para injeção de dependência
+			builder.Services.AddSingleton<DbConnectionManager>(); 
 
-			builder.Services.AddSingleton<MainPage>(); //Pagina
+			// Registrar Serviços
+			builder.Services.AddTransient<UsuarioServices>();
+
+			// Reistrar Repositórios
+			builder.Services.AddTransient<UsuarioRepository>();
+
+			// Registrar chamadas ModelView
+			builder.Services.AddTransient<UsuarioViewModel>();
+
+			// Registrar chamadas Views
+			builder.Services.AddTransient<LoginPage>();
+
+
 
 			builder
 				.UseMauiApp<App>()
+				.UseMauiCommunityToolkit()
 				.ConfigureFonts(fonts =>
 				{
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

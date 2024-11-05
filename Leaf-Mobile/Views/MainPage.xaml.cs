@@ -1,17 +1,19 @@
-﻿using Leaf_Mobile.Views;
+﻿using Leaf_Mobile.ViewModel;
+using Leaf_Mobile.Views;
 
 namespace Leaf_Mobile
 {
 	public partial class MainPage : ContentPage
 	{
-		// private readonly DbConnectionManager _dbConnectionManager;
-		
+		private readonly UsuarioViewModel _usuarioViewModel;
 
-		public MainPage()
+		public MainPage(UsuarioViewModel usuarioViewModel)
 		{
-			// _dbConnectionManager = dbConnectionManager;
+			_usuarioViewModel = usuarioViewModel;
 			InitializeComponent();
 		}
+
+		
 		
 		// Método para aplicar o efeito de clique na imagem
 		private async Task ApplyClickAnimation(VisualElement element)
@@ -40,10 +42,25 @@ namespace Leaf_Mobile
 		private async void ImgLogOff_click(object sender, TappedEventArgs e)
 		{
 			var image = (Image)sender;
-			await ApplyClickAnimation(image);
+			await ApplyClickAnimation(image);			
 
-			await DisplayAlert("Sair de Leaf", "Deseja sair do aplicativo ?", "Sim", "Não");
+			bool resposta = await DisplayAlert("Sair do sistema",
+												"Tem certeza que deseja sair ?",
+												"Sim",
+												"Não");
+			if (resposta)
+			{
+				// Remove as preferências de login
+				Preferences.Clear();
+
+				// Redefine a página principal para a tela de login
+				Application.Current!.MainPage = new LoginPage(_usuarioViewModel);
+
+			}
 		}
+
+		
+		
 	}
 
 }
