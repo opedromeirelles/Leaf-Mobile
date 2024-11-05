@@ -29,7 +29,7 @@ namespace Leaf.Repository.Materiais
 		}
 
 
-		public Produto GetProdutoById(int idProduto)
+		public async Task<Produto> GetProdutoByIdAsync(int idProduto)
 		{
 			string sql = @"Select * FROM produto Where idproduto = @idproduto";
 			Produto produto = new Produto();
@@ -40,9 +40,9 @@ namespace Leaf.Repository.Materiais
 				SqlCommand command = new SqlCommand(sql, conn);
 				command.Parameters.AddWithValue("@idproduto", idProduto);
 
-				SqlDataReader reader = command.ExecuteReader();
+				SqlDataReader reader = await command.ExecuteReaderAsync();
 
-				if (reader.Read())
+				if (await reader.ReadAsync())
 				{
 					produto = MapearProduto(reader);
 				}

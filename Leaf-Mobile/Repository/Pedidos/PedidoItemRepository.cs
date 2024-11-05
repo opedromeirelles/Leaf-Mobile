@@ -6,10 +6,10 @@ using Microsoft.Data.SqlClient;
 
 namespace Leaf.Repository.Pedidos
 {
-    public class ItemPedidoRepository
+    public class PedidoItemRepository
     {
         private readonly DbConnectionManager _dbConnectionManager;
-        public ItemPedidoRepository(DbConnectionManager dbConnectionManager)
+        public PedidoItemRepository(DbConnectionManager dbConnectionManager)
         {
             _dbConnectionManager = dbConnectionManager;
         }
@@ -28,7 +28,7 @@ namespace Leaf.Repository.Pedidos
 		}
 
 		//Listar item do pedido
-		public List<PedidoItem> GetItensPedido(int idPedido)
+		public async Task<List<PedidoItem>> GetItensPedidoAsync(int idPedido)
         {
             string sql = @"select * from ITEM_PEDIDO where id_pedido = @idPedido";
 
@@ -36,14 +36,14 @@ namespace Leaf.Repository.Pedidos
             {
                 SqlCommand command = new SqlCommand(sql, conn);
                 command.Parameters.AddWithValue("@idPedido", idPedido);
-                SqlDataReader reader = command.ExecuteReader();
+                SqlDataReader reader = await command.ExecuteReaderAsync();
 
                 try
                 {
 
                     List<PedidoItem> itensPedido = new List<PedidoItem>();
 
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         itensPedido.Add(MapearItemPedido(reader));
                     }

@@ -1,4 +1,5 @@
-﻿using Leaf.Repository.Agentes;
+﻿using GoogleGson;
+using Leaf.Repository.Agentes;
 using Leaf_Mobile.Model;
 using Leaf_Mobile.ViewModel;
 using System;
@@ -46,5 +47,27 @@ namespace Leaf_Mobile.Services
 
 		}
 		
+		public async Task<Usuario> GetUsuario(int idUsuario)
+		{
+			Usuario usuario = new Usuario();
+
+			try
+			{
+				if (idUsuario != 0)
+				{
+					usuario = await _usuarioRepository.GetUsuarioById(idUsuario);
+				}
+
+				return usuario ?? new Usuario();
+
+			}
+			catch (Exception ex)
+			{
+
+				throw new Exception("Erro ao consultar usuário. " + ex.Message);
+			}
+			
+		}
+
 	}
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Leaf_Mobile.Model
 {
-	public class Pedido
+	public sealed class Pedido
 	{
 		public int IdPedido { get; set; }
-		public string? Stauts { get; set; }
+		public string? Status { get; set; }
 		public decimal? ValorToal { get; set; }
 		public string? EndEntrega { get; set; }
 		public string? Cep { get; set; }

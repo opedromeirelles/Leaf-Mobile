@@ -72,7 +72,7 @@ namespace Leaf.Repository.Agentes
         }
 
         // GET USUÁRIO
-        public Usuario? GetUsuarioById(int id)
+        public async Task<Usuario> GetUsuarioById(int id)
         {
             using (SqlConnection conn = _dbConnectionManager.GetConnection())
             {
@@ -85,15 +85,15 @@ namespace Leaf.Repository.Agentes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
-                SqlDataReader reader = cmd.ExecuteReader();
+                SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
-                if (reader.Read())
+                if (await reader.ReadAsync())
                 {
                     return MapearUsuario(reader);
                 }
                 else
                 {
-                    return null;
+                    return new Usuario();
                 }
 
             }

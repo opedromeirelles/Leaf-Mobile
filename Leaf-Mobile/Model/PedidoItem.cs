@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Leaf_Mobile.Model
 {
-	public class PedidoItem
+	public sealed class PedidoItem
 	{
 		public int IdItemPedido { get; set; }
 		public int IdProduto { get; set; }

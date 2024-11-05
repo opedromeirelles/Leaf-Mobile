@@ -6,7 +6,6 @@
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True"
              NavigationPage.IconColor="White">
-  
 
     <!-- Personalização do TitleView -->
     <NavigationPage.TitleView>

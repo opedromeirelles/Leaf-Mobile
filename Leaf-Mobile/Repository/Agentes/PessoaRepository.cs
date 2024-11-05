@@ -33,7 +33,8 @@ namespace Leaf.Repository.Agentes
 		}
 
 
-		public Pessoa GetPessoaById(int idPessoa)
+		// GET
+		public async Task<Pessoa> GetPessoaByIdAsync(int idPessoa)
 		{
 			string sql = @"SELECT * FROM pessoa WHERE idpessoa = @idpessoa";
 			Pessoa pessoa = new Pessoa();
@@ -44,9 +45,9 @@ namespace Leaf.Repository.Agentes
 				SqlCommand command = new SqlCommand(sql, conn);
 				command.Parameters.AddWithValue("@idpessoa", idPessoa);
 
-				SqlDataReader reader = command.ExecuteReader();
+				SqlDataReader reader = await command.ExecuteReaderAsync();
 
-				if (reader.Read())
+				if (await reader.ReadAsync())
 				{
 					pessoa = MapearPessoa(reader);
 				}

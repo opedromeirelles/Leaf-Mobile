@@ -1,20 +1,19 @@
 using Leaf_Mobile.ViewModel;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using Android.Preferences;
 
 namespace Leaf_Mobile.Views;
-
 
 public partial class LoginPage : ContentPage
 {
 	private ErrorViewModel? _errorViewModel;
 	private readonly UsuarioViewModel _usuarioViewModel;
+	private readonly IServiceProvider _serviceProvider;
 
-
-	public LoginPage(UsuarioViewModel usuarioViewModel)
+	public LoginPage(UsuarioViewModel usuarioViewModel, IServiceProvider serviceProvider)
 	{
 		_usuarioViewModel = usuarioViewModel;
+		_serviceProvider = serviceProvider;
 		InitializeComponent();
 	}
 
@@ -30,43 +29,37 @@ public partial class LoginPage : ContentPage
 			return;
 		}
 
-		var toast = Toast.Make("Autenticando..", ToastDuration.Short, 14);
+		// Mensagem de autenticação
+		var toast = Toast.Make("Autenticando...", ToastDuration.Short, 14);
 		await toast.Show();
 
+		// Lógica de autenticação
+		_errorViewModel = _usuarioViewModel.Validarlogin(login, senha);
 
-		try
+		if (_errorViewModel.Sucesso)
 		{
-			// Lógica de autenticação 
-			_errorViewModel = _usuarioViewModel.Validarlogin(login, senha);
+			// Usando o serviceProvider para obter uma instância da MainPage com as dependências configuradas
+			var mainPage = _serviceProvider.GetRequiredService<MainPage>();
 
-			if (_errorViewModel.Sucesso)
+			// Define a MainPage dentro de uma NavigationPage
+			Application.Current!.MainPage = new NavigationPage(mainPage)
 			{
-				// Redefine a MainPage como uma nova NavigationPage com estilo de barra de navegação
-				Application.Current!.MainPage = new NavigationPage(new MainPage(_usuarioViewModel))
-				{
-					BarBackgroundColor = Color.FromArgb("#589b3c"),
-					BarTextColor = Colors.White,
-					BarBackground = new LinearGradientBrush(
-						new GradientStopCollection
-						{
+				BarBackgroundColor = Color.FromArgb("#589b3c"),
+				BarTextColor = Colors.White,
+				BarBackground = new LinearGradientBrush(
+					new GradientStopCollection
+					{
 						new GradientStop(Color.FromArgb("#589b3c"), 0.0f),
 						new GradientStop(Color.FromArgb("#8fd457"), 1.0f)
-						},
-						new Point(0, 0), new Point(1, 0)
-					)
-				};
-			}
-			else
-			{
-				string erroFormatado = _errorViewModel.ErroFormatado(_errorViewModel);
-				await DisplayAlert("Validação", erroFormatado, "OK");
-			}
+					},
+					new Point(0, 0), new Point(1, 0)
+				)
+			};
 		}
-		finally
+		else
 		{
-			toast = Toast.Make("Usuário Autenticado!", ToastDuration.Short, 14);
-			await toast.Show();
+			string erroFormatado = _errorViewModel.ErroFormatado(_errorViewModel);
+			await DisplayAlert("Validação", erroFormatado, "OK");
 		}
 	}
-
 }
