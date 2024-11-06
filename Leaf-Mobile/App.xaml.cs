@@ -10,6 +10,7 @@ namespace Leaf_Mobile
 		private readonly UsuarioViewModel _usuarioViewModel;
 		private readonly IServiceProvider _serviceProvider;
 
+		//Inicialização do sistema
 		public App(UsuarioViewModel usuarioViewModel, IServiceProvider serviceProvider)
 		{
 			_usuarioViewModel = usuarioViewModel;
@@ -19,6 +20,8 @@ namespace Leaf_Mobile
 
 			InitializeComponent();
 
+
+			//Vejo se há preferences
 			if (isLoggedIn)
 			{
 				// Resolve a MainPage e configura a navegação
@@ -41,7 +44,13 @@ namespace Leaf_Mobile
 			else
 			{
 				// Resolve a LoginPage com os serviços injetados
-				MainPage = _serviceProvider.GetRequiredService<LoginPage>();
+				var mainPage = _serviceProvider.GetRequiredService<LoginPage>();
+				MainPage = new NavigationPage(mainPage)
+				{
+					BarBackgroundColor = Color.FromArgb("#589b3c"), // Cor de fundo da barra de navegação
+					BarTextColor = Colors.White                    // Cor do texto na barra de navegação
+
+				};
 			}
 		}
 	}

@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Leaf_Mobile.ViewModel"
              x:Class="Leaf_Mobile.MainPage"
              Title="Lista de Pedidos"
              NavigationPage.HasNavigationBar="True"
              NavigationPage.HasBackButton="True"
              NavigationPage.IconColor="White">
-
+    
+    
     <!-- Personalização do TitleView -->
     <NavigationPage.TitleView>
         <Grid BackgroundColor="Transparent" Padding="10">
@@ -38,92 +40,135 @@
         </Grid>
     </NavigationPage.TitleView>
 
-    <!-- Conteúdo principal da página -->
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+    <RefreshView IsRefreshing="{Binding Carregar}" Command="{Binding AtualizarListaPedidosCommand}">
+        
+        <!-- Conteúdo principal da página -->
+        <ScrollView>
+            <VerticalStackLayout>
 
-            <!--Titulo da pagina-->
-            <Label
-                Text="LISTA DE PEDIDOS A SEREM ENTREGUES"
-                FontSize="Body"
-                HorizontalOptions="Center"
-                Margin="0,30,0,0"
-                />
-            
-            <!--Container do pedido-->
-            <Frame 
-                BackgroundColor="Transparent" 
-                Padding="0" 
-                HorizontalOptions="Center"
-                BorderColor="DimGray"
-                >
+                <!--Titulo da pagina-->
+                <Label
+                    Text="LISTA DE PEDIDOS A SEREM ENTREGUES"
+                    FontSize="Body"
+                    HorizontalOptions="Center"
+                    Margin="0,30,0,30"
+                    />
 
-                <VerticalStackLayout Padding="25">
+                <!-- Label para exibir a mensagem de "Não há pedidos" -->
+                <Label 
+                    Text="Não há pedidos lançados"
+                    Margin="0,250"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    FontSize="Medium"
+                    Opacity="0.5"
+                    IsVisible="{Binding NaoTemPedidos}"/>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="10"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
 
-                        <!--Endereço-->
-                        <Label
-                            Grid.Column="0"
-                            Grid.Row="0"
-                            Padding="0,0,80,20"
-                            x:Name="lblEndereco"
-                            Text="Endereço: Rua João Pedro Gasparo, Setparque Avenida 2 - CEP 15045643, São José do Rio Preto, SP"/>
+                <!--Coleção de pedidos-->
+                <CollectionView 
+                    ItemsSource="{Binding Pedidos}"
+                    IsVisible="{Binding TemPedidos}"
+                    HorizontalOptions="Center">
 
-                        <!--Número do pedido-->
-                        <Label
-                            Grid.Column="0"
-                            Grid.Row="1"
-                            x:Name="lblNumeroPedido"
-                            Text="Pedido: Nº 1"/>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
                         
-                        <!--Cliente-->
-                        <Label
-                            Grid.Column="0"
-                            Grid.Row="2"
-                            x:Name="lblNomeCliente"
-                            Text="Cliente: Pedro Augusto"/>
+                            <!--Container do pedido-->
+                            <Frame 
+                                BackgroundColor="Transparent" 
+                                Padding="0" 
+                                HorizontalOptions="Center"
+                                BorderColor="DimGray"
+                                Margin="5"
+                                >
+
+                                <VerticalStackLayout Padding="30">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="240"/>
+                                            <ColumnDefinition Width="20"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!--Endereço-->
+                                        <Label
+                                            Grid.Column="0"
+                                            Grid.Row="0"
+                                            Padding="0,0,80,10"
+                                            x:Name="lblEndereco"
+                                            Text="{Binding Pedido.EndEntrega, StringFormat='Endereço: {0}'}"/>
+
+                                        <!--CEP-->
+                                        <Label
+                                             Grid.Column="0"
+                                             Grid.Row="1"
+                                             x:Name="lblCep"
+                                            Margin="0,0,0,10"
+                                             Text="{Binding Pedido.Cep, StringFormat='CEP: {0}'}"/>
+                                        
+                                        <!--Número do pedido-->
+                                        <Label
+                                            Grid.Column="0"
+                                            Grid.Row="2"
+                                            x:Name="lblNumeroPedido"
+                                            x:Uid="{Binding Pedido.IdPedido}"
+                                            Text="{Binding Pedido.IdPedido, StringFormat='Pedido Nº {0}'}"/>
+                        
+                                        <!--Cliente-->
+                                        <Label
+                                            Grid.Column="0"
+                                            Grid.Row="3"
+                                            x:Name="lblNomeCliente"
+                                            Padding="0,0,80,20"
+                                            Text="{Binding Pedido.Pessoa.Nome, StringFormat='Cliente: {0}'}"/>
+
+                                       
 
 
-                        <!--Icone de detalhes-->
-                        <Image
-                            WidthRequest="60"
-                            HeightRequest="60"
-                            Grid.Column="1"
-                            Grid.Row="0"
-                            Grid.RowSpan="3"
-                            Source="detalhes_pedidos.svg"
-                            Aspect="AspectFit"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Margin="0,0,50,0" >
+                                        <!--Icone de detalhes-->
+                                        <Image
+                                            WidthRequest="60"
+                                            HeightRequest="60"
+                                            Grid.Column="1"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="4"
+                                            Source="detalhes_pedidos.svg"
+                                            Margin="0,0,50,0" >
 
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Tapped="ImgDetalhes_click"/>
-                            </Image.GestureRecognizers>
-                            
-                            
-                        </Image>
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Tapped="ImgDetalhes_Clicked"
+                                                    CommandParameter="{Binding}" />
+                                            </Image.GestureRecognizers>
 
-                    </Grid>
 
-                </VerticalStackLayout>
+                                        </Image>
 
-            </Frame>
+                                    </Grid>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                                </VerticalStackLayout>
+
+                            </Frame>
+                        
+                        
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                
+                
+                
+                </CollectionView>
+            
+
+            </VerticalStackLayout>
+        </ScrollView>
+        
+    </RefreshView>
 
 </ContentPage>

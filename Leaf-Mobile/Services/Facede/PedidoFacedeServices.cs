@@ -26,7 +26,7 @@ namespace Leaf_Mobile.Services.Facede
 		private async Task<PedidoViewModel> MapeaPedido(int idPedido)
 		{
 			//Valido o id do pedido
-			if (idPedido > 0)
+			if (idPedido <= 0)
 			{
 				return new PedidoViewModel(this);
 			}

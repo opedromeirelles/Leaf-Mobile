@@ -42,7 +42,7 @@ namespace Leaf.Repository.Pedidos
         //Ler Pedidos
         public async Task<List<Pedido>> GetPedidosAsync()
         {
-            string sql = @"select * from pedido where status = 'EM' ";
+            string sql = @"select * from pedido where status = 'RT' ";
 
             List<Pedido> pedidos = new List<Pedido>();
 
@@ -105,7 +105,7 @@ namespace Leaf.Repository.Pedidos
 			string sql = @"update pedido
                            set status = @status,
                            id_entregador = @idEntregador,
-                           dta_saida = @dtaSaida
+                           dta_entrega = @dtaEntrega
                            where idpedido = @idPedido";
 
 			using (SqlConnection conn = _dbConnectionManager.GetConnection())
@@ -115,7 +115,7 @@ namespace Leaf.Repository.Pedidos
 				command.Parameters.AddWithValue("@idPedido", idPedido);
 				command.Parameters.AddWithValue("@idEntregador", idEntregador);
 				command.Parameters.AddWithValue("@status", "BX");
-				command.Parameters.AddWithValue("@dtaSaida", DateTime.Now);
+				command.Parameters.AddWithValue("@dtaEntrega", DateTime.Now);
 
 
 				try

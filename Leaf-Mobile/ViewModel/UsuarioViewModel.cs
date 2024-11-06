@@ -37,11 +37,13 @@ namespace Leaf_Mobile.ViewModel
 
 					if (usuario.IdUsuario != 0)
 					{
-						this.Id = usuario.IdUsuario;
+						Id = usuario.IdUsuario;
 
 						// Salva o status do login e as informações do usuário
+						Preferences.Clear();
 						Preferences.Set("UserLoggedIn", true);
 						Preferences.Set("NomeUsuario", usuario.Nome);
+						Preferences.Set("IdUser", Id);
 
 						return new ErrorViewModel(true, "Usuário autenticado.");
 					}

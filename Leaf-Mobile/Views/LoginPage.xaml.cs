@@ -6,10 +6,10 @@ namespace Leaf_Mobile.Views;
 
 public partial class LoginPage : ContentPage
 {
-	private ErrorViewModel? _errorViewModel;
 	private readonly UsuarioViewModel _usuarioViewModel;
 	private readonly IServiceProvider _serviceProvider;
 
+	//Construtor
 	public LoginPage(UsuarioViewModel usuarioViewModel, IServiceProvider serviceProvider)
 	{
 		_usuarioViewModel = usuarioViewModel;
@@ -17,6 +17,7 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 	}
 
+	//Botao de entrar
 	private async void btnLogin_Clicked(object sender, EventArgs e)
 	{
 		string login = entryUsername.Text;
@@ -34,9 +35,9 @@ public partial class LoginPage : ContentPage
 		await toast.Show();
 
 		// Lógica de autenticação
-		_errorViewModel = _usuarioViewModel.Validarlogin(login, senha);
+		ErrorViewModel error = _usuarioViewModel.Validarlogin(login, senha);
 
-		if (_errorViewModel.Sucesso)
+		if (error.Sucesso)
 		{
 			// Usando o serviceProvider para obter uma instância da MainPage com as dependências configuradas
 			var mainPage = _serviceProvider.GetRequiredService<MainPage>();
@@ -58,8 +59,46 @@ public partial class LoginPage : ContentPage
 		}
 		else
 		{
-			string erroFormatado = _errorViewModel.ErroFormatado(_errorViewModel);
+			string erroFormatado = error.ErroFormatado(error);
 			await DisplayAlert("Validação", erroFormatado, "OK");
 		}
 	}
+
+	//Botao de desligar
+	private async void ImgLogOff_click(object sender, TappedEventArgs e)
+	{
+		var image = (Image)sender;
+		await ApplyClickAnimation(image);
+
+		bool resposta = await DisplayAlert("Sair do sistema",
+											"Tem certeza que deseja sair?",
+											"Sim",
+											"Não");
+		if (resposta)
+		{
+			// Remove as preferências de login
+			Preferences.Clear();
+			// Fecha a aplicação
+			System.Environment.Exit(0);
+		}
+
+	}
+
+
+
+	// Método para aplicar o efeito de clique na imagem
+	private async Task ApplyClickAnimation(VisualElement element)
+	{
+		await Task.WhenAll(
+			element.FadeTo(0.6, 30),
+			element.ScaleTo(0.9, 30)
+		);
+
+		await Task.WhenAll(
+			element.FadeTo(1, 40),
+			element.ScaleTo(1, 40)
+		);
+	}
+
+
 }

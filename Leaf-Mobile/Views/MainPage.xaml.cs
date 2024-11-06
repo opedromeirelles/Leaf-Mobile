@@ -20,12 +20,17 @@ namespace Leaf_Mobile
 
 		public MainPage(UsuarioViewModel usuarioViewModel, PedidoFacedeServices pedidoFacedeServices, IServiceProvider serviceProvider)
 		{
+
 			_usuarioViewModel = usuarioViewModel;
+			_usuarioViewModel.Id = Preferences.Get("IdUser", default(int));
+
 			_pedidoFacedeServices = pedidoFacedeServices;
 			_pedidoViewModel = new PedidoViewModel(pedidoFacedeServices);
+
 			_serviceProvider = serviceProvider;
 
 			BindingContext = _pedidoViewModel;
+
 			InitializeComponent();
 		}
 
@@ -42,6 +47,7 @@ namespace Leaf_Mobile
 			base.OnAppearing();
 		}
 
+		
 		// Método para fazer logoff e redirecionar para a LoginPage
 		private async void ImgLogOff_click(object sender, TappedEventArgs e)
 		{
@@ -61,9 +67,30 @@ namespace Leaf_Mobile
 				var loginPage = _serviceProvider.GetRequiredService<LoginPage>();
 
 				// Redefine a MainPage para a tela de login
-				Application.Current!.MainPage = new NavigationPage(loginPage);
+				Application.Current!.MainPage = new NavigationPage(loginPage) 
+				{
+					BarBackgroundColor = Color.FromArgb("#589b3c"), 
+					BarTextColor = Colors.White
+				};
 			}
 		}
+
+		private async void ImgDetalhes_Clicked(object sender, TappedEventArgs e)
+		{
+			var image = (Image)sender;
+			await ApplyClickAnimation(image);
+
+			// Recebe o pedido selecionado a partir do CommandParameter
+			var pedidoSelecionado = e.Parameter as PedidoViewModel;
+
+			if (pedidoSelecionado != null)
+			{
+
+				await Navigation.PushAsync(new PedidoPage(pedidoSelecionado, _serviceProvider));
+			}
+		}
+
+
 
 		// Método para aplicar o efeito de clique na imagem
 		private async Task ApplyClickAnimation(VisualElement element)
@@ -77,15 +104,6 @@ namespace Leaf_Mobile
 				element.FadeTo(1, 40),
 				element.ScaleTo(1, 40)
 			);
-		}
-
-		private async void ImgDetalhes_click(object sender, TappedEventArgs e)
-		{
-			var image = (Image)sender;
-			await ApplyClickAnimation(image);
-
-			await DisplayAlert("Detalhes", "Aqui sera os detalhes do pedido", "OK");
-
 		}
 	}
 }
