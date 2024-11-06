@@ -97,7 +97,7 @@
                         <Entry 
                             CursorPosition="0"
                             Keyboard="Text"
-                            Placeholder="Nome de Usuário"
+                            Placeholder="Login de Usuário"
                             BackgroundColor="Transparent"
                             VerticalOptions="Center"
                             HorizontalOptions="FillAndExpand"

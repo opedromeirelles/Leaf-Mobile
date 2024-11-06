@@ -22,6 +22,8 @@ namespace Leaf_Mobile
 		{
 			var builder = MauiApp.CreateBuilder();
 
+			
+
 			// Configurar a leitura do arquivo appsettings.json
 			var assembly = Assembly.GetExecutingAssembly();
 			using var stream = assembly.GetManifestResourceStream("Leaf_Mobile.appsettings.json");
@@ -82,7 +84,7 @@ namespace Leaf_Mobile
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				});
-
+			
 #if DEBUG
 			builder.Logging.AddDebug();
 #endif

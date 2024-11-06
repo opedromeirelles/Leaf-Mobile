@@ -22,7 +22,6 @@ namespace Leaf_Mobile.ViewModel
 		private bool _carregar;
 		private bool _estaAtualizando;
 		private bool _temPedido;
-		private bool _notPedido;
 
 		// Propriedade para controle de estado
 		public bool EmUso
